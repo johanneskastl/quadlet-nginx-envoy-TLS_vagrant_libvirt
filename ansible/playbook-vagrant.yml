@@ -1,0 +1,7 @@
+---
+
+- name: 'Run playbook-install_tmux.yml'
+  ansible.builtin.import_playbook: playbook-install_tmux.yml
+
+- name: 'Run playbook-quadlet.yml'
+  ansible.builtin.import_playbook: playbook-quadlet.yml
