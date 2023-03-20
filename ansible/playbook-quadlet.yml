@@ -37,7 +37,8 @@
       permanent: true
       state: enabled
     loop:
-    - 8000/tcp
+    - 8080/tcp
+    - 8443/tcp
     - 9000/tcp
     when: not firewalld_exists.changed
 
