@@ -9,6 +9,8 @@ ConfigMap=envoy-proxy-configmap.yml
 # Use the quadlet-nginx-envoy network
 Network=quadlet-nginx-envoy.network
 # Envoy port HTTPS
+PublishPort=8080:8080
+# Envoy port HTTPS
 PublishPort=8443:8443
 # Publish the envoy proxy admin port
 PublishPort=9000:9901
