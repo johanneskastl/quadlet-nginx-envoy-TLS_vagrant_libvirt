@@ -45,18 +45,18 @@
     block:
     - name: Create a scratch directory
       ansible.builtin.file:
-        path: /tmp/quadlet-demo-scratch
+        path: /tmp/quadlet-nginx-envoy-tls-scratch
         state: directory
         mode: '0755'
 
     - name: Create private key (RSA, 4096 bits)
       community.crypto.openssl_privatekey:
-        path: /tmp/quadlet-demo-scratch/certificate.key
+        path: /tmp/quadlet-nginx-envoy-tls-scratch/certificate.key
 
     - name: Create certificate signing request (CSR) for self-signed certificate
       community.crypto.openssl_csr:
-        path: /tmp/quadlet-demo-scratch/certificate.csr
-        privatekey_path: /tmp/quadlet-demo-scratch/certificate.key
+        path: /tmp/quadlet-nginx-envoy-tls-scratch/certificate.csr
+        privatekey_path: /tmp/quadlet-nginx-envoy-tls-scratch/certificate.key
         common_name: example.org
         organization_name: Example Org
         subject_alt_name:
@@ -66,16 +66,16 @@
 
     - name: Create simple self-signed certificate
       community.crypto.x509_certificate:
-        path: /tmp/quadlet-demo-scratch/certificate.pem
-        privatekey_path: /tmp/quadlet-demo-scratch/certificate.key
-        csr_path: /tmp/quadlet-demo-scratch/certificate.csr
+        path: /tmp/quadlet-nginx-envoy-tls-scratch/certificate.pem
+        privatekey_path: /tmp/quadlet-nginx-envoy-tls-scratch/certificate.key
+        csr_path: /tmp/quadlet-nginx-envoy-tls-scratch/certificate.csr
         provider: selfsigned
 
     - name: Create the podman secret
       ansible.builtin.shell: |
         kubectl create secret generic --from-file=certificate.key --from-file=certificate.pem envoy-certificates --dry-run=client -o yaml | podman kube play -
       args:
-        chdir: /tmp/quadlet-demo-scratch
+        chdir: /tmp/quadlet-nginx-envoy-tls-scratch
       register: secret_created
       changed_when: secret_created.rc == 0
 
