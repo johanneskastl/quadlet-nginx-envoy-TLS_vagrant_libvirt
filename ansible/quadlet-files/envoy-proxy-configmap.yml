@@ -34,6 +34,7 @@ data:
                       prefix: "/"
                     redirect:
                       https_redirect: true
+                      port_redirect: 8443
               http_filters:
               - name: envoy.filters.http.router
                 typed_config:
