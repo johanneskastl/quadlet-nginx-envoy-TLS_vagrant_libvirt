@@ -12,7 +12,7 @@ data:
 
     static_resources:
       listeners:
-      - name: listener_0
+      - name: listener_https
         address:
           socket_address:
             address: 0.0.0.0
